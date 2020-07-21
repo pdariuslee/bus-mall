@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // console.log('connected');
 
@@ -32,43 +32,83 @@ Product.prototype.renderProducts = function() {
 
 };
 
-Product.prototype.renderResults = function() {
-  var target = document.getElementById('product-vote');
-  var liProduct = document.createElement('li');
+function renderFinalResults() {
 
-  var pContent = document.createElement('p');
-  pContent.textContent = 'Product name: ' + this.productName + ' | ' + 'No. of times displayed: ' + this.numberOfTimesDisplayed + ' | ' + 'Votes: ' + this.liveClicks;
+  for(var i = 0; i < productsArray.length; i++){
 
-  liProduct.appendChild(pContent);
+    var target = document.getElementById('product-vote');
+    var liProduct = document.createElement('li');
 
-  var insertBreak = document.createElement('br');
-  insertBreak.textContent = '<br>';
+    var pContent = document.createElement('p');
+    pContent.textContent = 'Product name: ' + productsArray[i].productName + ' | ' + 'No. of times displayed: ' + productsArray[i].numberOfTimesDisplayed + ' | ' + 'Votes: ' + productsArray[i].liveClicks;
 
-  liProduct.appendChild(insertBreak);
+    liProduct.appendChild(pContent);
+
+    var insertBreak = document.createElement('br');
+    insertBreak.textContent = '<br>';
+
+    liProduct.appendChild(insertBreak);
 
 
-  target.appendChild(liProduct);
+    target.appendChild(liProduct);
 
-};
+  }
 
-// Product.prototype.displayFinalResult = function() {
-//   var targetUl = document.getElementById('ulDisplayProducts');
-//   var childLi = document.createElement('li');
+}
 
-//   var pContent = document.createElement('p');
-
-//   pContent.textContent = this.productName + ': ' + this.numberOfTimesDisplayed + ' | ';
-//   childLi.appendChild(pContent);
-  
-
-//   targetUl.appendChild(childLi);
-// };
-
+var currentIndexOnPage = [0,1,2];
+// [5,1,4]
 function displayProducts() {
 
   var item1 = Math.floor(Math.random() * productsArray.length);
   var item2 = Math.floor(Math.random() * productsArray.length);
   var item3 = Math.floor(Math.random() * productsArray.length);
+
+  // =========================
+
+  // while(item1 === item2 || item1 === item3 || item2 === item3){
+  //   item1 = Math.floor(Math.random() * productsArray.length);
+  //   item2 = Math.floor(Math.random() * productsArray.length);
+
+  //   console.log('2nd while triggered');
+  // }
+
+  // ==========================
+
+  //make sure that none of the new 3 images is the same with the 3 old images
+  while(item1 === currentIndexOnPage[0] ||
+       item1 === currentIndexOnPage[1] ||
+       item1 === currentIndexOnPage[2]){
+
+    console.log('1st while triggered');
+    item1 = Math.floor(Math.random() * productsArray.length);
+
+  }
+
+  while(item2 === currentIndexOnPage[0] ||
+    item2 === currentIndexOnPage[1] ||
+    item2 === currentIndexOnPage[2]){
+
+    console.log('1st while triggered');
+    item2 = Math.floor(Math.random() * productsArray.length);
+  }
+
+  while(item3 === currentIndexOnPage[0] ||
+  item3 === currentIndexOnPage[1] ||
+  item3 === currentIndexOnPage[2]){
+
+    console.log('1st while triggered');
+    item3 = Math.floor(Math.random() * productsArray.length);
+  }
+
+
+  //makes sure all numbers in the set are diff
+  while(item1 === item2 || item1 === item3 || item2 === item3 || item1 === currentIndexOnPage[0] || item1 === currentIndexOnPage[1] || item1 === currentIndexOnPage[2] || item2 === currentIndexOnPage[0] || item2 === currentIndexOnPage[1] || item2 === currentIndexOnPage[2]){
+    item1 = Math.floor(Math.random() * productsArray.length);
+    item2 = Math.floor(Math.random() * productsArray.length);
+
+    console.log('2nd while triggered');
+  }
 
   productsArray[item1].numberOfTimesDisplayed++;
   var prod1 = productsArray[item1];
@@ -89,7 +129,7 @@ function displayProducts() {
 
   prod3.renderProducts();
 
-
+  currentIndexOnPage = [item1, item2, item3];
 }
 
 function handleClickOnProducts(event) {
@@ -116,10 +156,8 @@ function handleClickOnProducts(event) {
       var productList = document.getElementById('ulDisplayProducts');
       productList.innerHTML = '';
 
-      for(var i = 0; i < productsArray.length; i++){
-        productsArray[i].renderResults();
+      renderFinalResults();
 
-      }
       // for(var products = 0; products < productsArray.length; products++){
       //   productsArray[products].displayFinalResult();
       // }

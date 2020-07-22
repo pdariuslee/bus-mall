@@ -31,10 +31,15 @@ main > ul:first-child > li > img {
 
 main > ul:nth-child(2) {
   
-  outline: 5px solid black;
+  outline: 20px solid black;
   /* height: 150px; */
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 50px;
   padding-top: 10px;
 }
+
+/* main > div {
+  outline: 20px solid orange;
+  margin-bottom: 50px;
+} */

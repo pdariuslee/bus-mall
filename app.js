@@ -7,7 +7,7 @@
 // var productsArray = [];
 Product.productsArray = [];
 var totalClicks = 0;
-var roundsOfVote = 25;
+var roundsOfVote = 15;
 
 // ============================ function definition ============================
 
@@ -138,6 +138,7 @@ function handleClickOnProducts(event) {
     for(var prodIndex = 0; prodIndex < Product.productsArray.length; prodIndex++){
 
       if(Product.productsArray[prodIndex].imageSrc === event.target.getAttribute('src')){
+        console.log('matched');
         Product.productsArray[prodIndex].liveClicks++;
 
         //live results for votes
@@ -248,12 +249,12 @@ function createChart() {
         label: '# of Votes',
         data: productData,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)',
           'rgba(25, 108, 118, 0.4)',
           'rgba(55, 3, 179, 0.8)',
           'rgba(207, 180, 12, 0.6)',
@@ -308,5 +309,6 @@ function createChart() {
 });
 
 }
+
 
 

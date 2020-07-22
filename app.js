@@ -4,9 +4,10 @@
 
 // ============================ global vars ============================
 
-var productsArray = [];
+// var productsArray = [];
+Product.productsArray = [];
 var totalClicks = 0;
-var roundsOfVote = 5;
+var roundsOfVote = 25;
 
 // ============================ function definition ============================
 
@@ -16,8 +17,9 @@ function Product (productName, src){
   this.imageSrc = src;
   this.liveClicks = 0;
   this.numberOfTimesDisplayed = 0;
-  productsArray.push(this);
+  Product.productsArray.push(this);
 }
+
 
 Product.prototype.renderProducts = function() {
   var target = document.getElementById('ulDisplayProducts');
@@ -34,13 +36,13 @@ Product.prototype.renderProducts = function() {
 
 function renderFinalResults() {
 
-  for(var i = 0; i < productsArray.length; i++){
+  for(var i = 0; i < Product.productsArray.length; i++){
 
     var target = document.getElementById('product-vote');
     var liProduct = document.createElement('li');
 
     var pContent = document.createElement('p');
-    pContent.textContent = 'Product name: ' + productsArray[i].productName + ' | ' + 'No. of times displayed: ' + productsArray[i].numberOfTimesDisplayed + ' | ' + 'Votes: ' + productsArray[i].liveClicks;
+    pContent.textContent = 'Product name: ' + Product.productsArray[i].productName + ' | ' + 'No. of times displayed: ' + Product.productsArray[i].numberOfTimesDisplayed + ' | ' + 'Votes: ' + Product.productsArray[i].liveClicks;
 
     liProduct.appendChild(pContent);
 
@@ -57,23 +59,12 @@ function renderFinalResults() {
 }
 
 var currentIndexOnPage = [0,1,2];
-// [5,1,4]
+
 function displayProducts() {
 
-  var item1 = Math.floor(Math.random() * productsArray.length);
-  var item2 = Math.floor(Math.random() * productsArray.length);
-  var item3 = Math.floor(Math.random() * productsArray.length);
-
-  // =========================
-
-  // while(item1 === item2 || item1 === item3 || item2 === item3){
-  //   item1 = Math.floor(Math.random() * productsArray.length);
-  //   item2 = Math.floor(Math.random() * productsArray.length);
-
-  //   console.log('2nd while triggered');
-  // }
-
-  // ==========================
+  var item1 = Math.floor(Math.random() * Product.productsArray.length);
+  var item2 = Math.floor(Math.random() * Product.productsArray.length);
+  var item3 = Math.floor(Math.random() * Product.productsArray.length);
 
   //make sure that none of the new 3 images is the same with the 3 old images
   while(item1 === currentIndexOnPage[0] ||
@@ -81,7 +72,7 @@ function displayProducts() {
        item1 === currentIndexOnPage[2]){
 
     console.log('1st while triggered');
-    item1 = Math.floor(Math.random() * productsArray.length);
+    item1 = Math.floor(Math.random() * Product.productsArray.length);
 
   }
 
@@ -90,7 +81,7 @@ function displayProducts() {
     item2 === currentIndexOnPage[2]){
 
     console.log('1st while triggered');
-    item2 = Math.floor(Math.random() * productsArray.length);
+    item2 = Math.floor(Math.random() * Product.productsArray.length);
   }
 
   while(item3 === currentIndexOnPage[0] ||
@@ -98,26 +89,26 @@ function displayProducts() {
   item3 === currentIndexOnPage[2]){
 
     console.log('1st while triggered');
-    item3 = Math.floor(Math.random() * productsArray.length);
+    item3 = Math.floor(Math.random() * Product.productsArray.length);
   }
 
 
   //makes sure all numbers in the set are diff
   while(item1 === item2 || item1 === item3 || item2 === item3 || item1 === currentIndexOnPage[0] || item1 === currentIndexOnPage[1] || item1 === currentIndexOnPage[2] || item2 === currentIndexOnPage[0] || item2 === currentIndexOnPage[1] || item2 === currentIndexOnPage[2]){
-    item1 = Math.floor(Math.random() * productsArray.length);
-    item2 = Math.floor(Math.random() * productsArray.length);
+    item1 = Math.floor(Math.random() * Product.productsArray.length);
+    item2 = Math.floor(Math.random() * Product.productsArray.length);
 
     console.log('2nd while triggered');
   }
 
-  productsArray[item1].numberOfTimesDisplayed++;
-  var prod1 = productsArray[item1];
+  // Product.productsArray[item1].numberOfTimesDisplayed++;
+  var prod1 = Product.productsArray[item1];
 
-  productsArray[item2].numberOfTimesDisplayed++;
-  var prod2 = productsArray[item2];
+  // Product.productsArray[item2].numberOfTimesDisplayed++;
+  var prod2 =Product.productsArray[item2];
 
-  productsArray[item3].numberOfTimesDisplayed++;
-  var prod3 = productsArray[item3];
+  // Product.productsArray[item3].numberOfTimesDisplayed++;
+  var prod3 = Product.productsArray[item3];
 
   var prodList = document.getElementById('ulDisplayProducts');
   prodList.innerHTML = '';
@@ -130,6 +121,13 @@ function displayProducts() {
   prod3.renderProducts();
 
   currentIndexOnPage = [item1, item2, item3];
+
+  if(totalClicks < roundsOfVote){
+    Product.productsArray[item1].numberOfTimesDisplayed++;
+    Product.productsArray[item2].numberOfTimesDisplayed++;
+    Product.productsArray[item3].numberOfTimesDisplayed++;
+  }
+
 }
 
 function handleClickOnProducts(event) {
@@ -141,35 +139,50 @@ function handleClickOnProducts(event) {
     totalClicks++;
 
     //increment product clicks
-    for(var prodIndex = 0; prodIndex < productsArray.length; prodIndex++){
+    for(var prodIndex = 0; prodIndex < Product.productsArray.length; prodIndex++){
 
-      if(productsArray[prodIndex].imageSrc === event.target.getAttribute('src')){
+      if(Product.productsArray[prodIndex].imageSrc === event.target.getAttribute('src')){
         console.log('matched');
-        productsArray[prodIndex].liveClicks++;
+        Product.productsArray[prodIndex].liveClicks++;
+
+        //live results for votes
+        var resultList = document.getElementById('product-vote');
+        resultList.innerHTML = '';
+        renderFinalResults();
       }
 
     }
 
     displayProducts();
 
+    //live results for no. of times displayed
+    var resultList = document.getElementById('product-vote');
+    resultList.innerHTML = '';
+    renderFinalResults();
+
     if(totalClicks === roundsOfVote){
       var productList = document.getElementById('ulDisplayProducts');
       productList.innerHTML = '';
 
+      var resultList = document.getElementById('product-vote');
+      resultList.innerHTML = '';
       renderFinalResults();
 
-      // for(var products = 0; products < productsArray.length; products++){
-      //   productsArray[products].displayFinalResult();
-      // }
-
       //remove listner
-      // listOfProducts.removeEventListener('click, handleClickOnProducts');
+      listOfProducts.removeEventListener('click', handleClickOnProducts);
+
+      // renderFinalResults();
+
 
     }
 
   } else {
     console.log('please click an image');
   }
+
+  // var resultList = document.getElementById('product-vote');
+  // resultList.innerHTML = '';
+  // renderFinalResults();
 
 }
 
@@ -184,21 +197,28 @@ new Product('bathroom', 'assets/bathroom.jpg');
 new Product('boots', 'assets/boots.jpg');
 new Product('breakfast', 'assets/breakfast.jpg');
 new Product('bubblegum', 'assets/bubblegum.jpg');
+new Product('chair', 'assets/chair.jpg');
+new Product('cthulhu', 'assets/cthulhu.jpg');
+new Product('dog-duck', 'assets/dog-duck.jpg');
+new Product('dragon', 'assets/dragon.jpg');
+new Product('pen', 'assets/pen.jpg');
+new Product('pet-sweep', 'assets/pet-sweep.jpg');
+new Product('scissors', 'assets/scissors.jpg');
+new Product('shark', 'assets/shark.jpg');
+new Product('sweep', 'assets/sweep.png');
+new Product('tauntaun', 'assets/tauntaun.jpg');
+new Product('unicorn', 'assets/unicorn.jpg');
+new Product('usb', 'assets/usb.gif');
+new Product('water-can', 'assets/water-can.jpg');
+new Product('wine-glass', 'assets/wine-glass.jpg');
 
-productsArray[0].renderProducts();
-productsArray[1].renderProducts();
-productsArray[2].renderProducts();
+Product.productsArray[0].numberOfTimesDisplayed = 1;
+Product.productsArray[1].numberOfTimesDisplayed = 1;
+Product.productsArray[2].numberOfTimesDisplayed = 1;
 
-// for(var products = 0; products < 3; products++){
-//   productsArray[i].renderProducts();
-// }
+renderFinalResults();
 
-
-
-
-
-
-// for(var products = 0; products < productsArray.length; products++){
-//   productsArray[products].displayFinalResult();
-// }
+Product.productsArray[0].renderProducts();
+Product.productsArray[1].renderProducts();
+Product.productsArray[2].renderProducts();
 

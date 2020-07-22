@@ -2,18 +2,39 @@
   outline: 5px dotted orange;
 } */
 
-main > ul {
-  width: 900px;
+main {
   margin: 0 auto;
-  margin-top: 200px;
+  width: 900px;
+  /* height: 600px; */
+  /* outline: 5px solid blue; */
+
 }
+
+main > ul:first-child {
+  width: 1000px;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
 
 main > ul:first-child > li {
   float: left;
 }
 
-main > ul > li > img {
+main > ul:first-child > li > img {
   width: 300px;
   height: 300px;
-  outline: 5px solid orange;
+  outline: 20px solid orange;
+  
+}
+
+main > ul:nth-child(2) {
+  
+  outline: 5px solid black;
+  /* height: 150px; */
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  padding-top: 10px;
 }

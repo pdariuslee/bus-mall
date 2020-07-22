@@ -7,7 +7,7 @@
 // var productsArray = [];
 Product.productsArray = [];
 var totalClicks = 0;
-var roundsOfVote = 15;
+var roundsOfVote = 25;
 
 // ============================ function definition ============================
 
@@ -138,7 +138,7 @@ function handleClickOnProducts(event) {
     for(var prodIndex = 0; prodIndex < Product.productsArray.length; prodIndex++){
 
       if(Product.productsArray[prodIndex].imageSrc === event.target.getAttribute('src')){
-        console.log('matched');
+
         Product.productsArray[prodIndex].liveClicks++;
 
         //live results for votes
@@ -169,6 +169,7 @@ function handleClickOnProducts(event) {
 
       // makes chart
       createChart();
+      createChart2();
 
 
     }
@@ -219,29 +220,42 @@ Product.productsArray[0].renderProducts();
 Product.productsArray[1].renderProducts();
 Product.productsArray[2].renderProducts();
 
-// ================================= chart =================================
+// ================================= 1st chart =================================
 
 function createChart() {
   
   // generate product names for the chart
   var labelArray = [];
+  var productData = [];
+  var productDisplayData = [];
 
   for(var i = 0; i < Product.productsArray.length; i++){
 
     labelArray[i] = Product.productsArray[i].productName;
+    productData.push(Product.productsArray[i].liveClicks);
+    productDisplayData.push(Product.productsArray[i].numberOfTimesDisplayed);
 
   }
   // generate products data
-  var productData = []
+  // var productData = [];
 
-  for(var j = 0; j < Product.productsArray.length; j++){
+  // for(var j = 0; j < Product.productsArray.length; j++){
 
-    productData.push(Product.productsArray[j].liveClicks);
+  //   productData.push(Product.productsArray[j].liveClicks);
 
-  }
+  // }
 
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
+  // // generate products data
+  // var productDisplayData = [];
+
+  // for(var j = 0; j < Product.productsArray.length; j++){
+
+  //   productDisplayData.push(Product.productsArray[j].numberOfTimesDisplayed);
+
+  // }
+
+  var ctx1 = document.getElementById('voteChart').getContext('2d');
+  var voteChart = new Chart(ctx1, {
     type: 'bar',
     data: {
       labels: labelArray,
@@ -262,7 +276,7 @@ function createChart() {
           'rgba(131, 253, 181, 0.4)',
           'rgba(193, 93, 104, 0.7)',
           'rgba(252, 155, 19, 0.7)',
-          'rgba(66, 62, 133, 0.1)',
+          'rgba(66, 62, 133, 0.8)',
           'rgba(220, 123, 101, 1)',
           'rgba(130, 83, 63, 0.4)',
           'rgba(233, 69, 238, 0.8)',
@@ -295,20 +309,72 @@ function createChart() {
           'rgba(147, 13, 90, 0.5)'
         ],
         borderWidth: 1
+      },
+      {
+        label: '# of times displayed',
+        data: productDisplayData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(25, 108, 118, 0.2)',
+          'rgba(55, 3, 179, 0.2)',
+          'rgba(207, 180, 12, 0.2)',
+          'rgba(163, 96, 172, 0.2)',
+          'rgba(131, 253, 181, 0.2)',
+          'rgba(193, 93, 104, 0.2)',
+          'rgba(252, 155, 19, 0.2)',
+          'rgba(66, 62, 133, 0.2)',
+          'rgba(220, 123, 101, 0.2)',
+          'rgba(130, 83, 63, 0.2)',
+          'rgba(233, 69, 238, 0.2)',
+          'rgba(132, 72, 6, 0.2)',
+          'rgba(6, 43, 125, 0.2)',
+          'rgba(147, 13, 90, 0.2)'
+
+
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(25, 108, 118, 0.4)',
+          'rgba(55, 3, 179, 0.8)',
+          'rgba(207, 180, 12, 0.6)',
+          'rgba(163, 96, 172, 0.6)',
+          'rgba(131, 253, 181, 0.4)',
+          'rgba(193, 93, 104, 0.7)',
+          'rgba(252, 155, 19, 0.7)',
+          'rgba(66, 62, 133, 0.1)',
+          'rgba(220, 123, 101, 1)',
+          'rgba(130, 83, 63, 0.4)',
+          'rgba(233, 69, 238, 0.8)',
+          'rgba(132, 72, 6, 1)',
+          'rgba(6, 43, 125, 0.9)',
+          'rgba(147, 13, 90, 0.5)'
+        ],
+        borderWidth: 1
       }]
     },
     options: {
       scales: {
+        xAxes: [{
+          stacked: true
+        }],
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: true,
+            stacked: true
           }
         }]
       }
     }
-});
+  });
 
 }
-
-
-

@@ -7,7 +7,7 @@
 // var productsArray = [];
 Product.productsArray = [];
 var totalClicks = 0;
-var roundsOfVote = 10;
+var roundsOfVote = 4;
 
 // ============================ function definition ============================
 
@@ -60,8 +60,10 @@ function renderFinalResults() {
 
 }
 
+TODO:
+var currentIndexOnPage = [];
 
-var currentIndexOnPage = [0,1,2];
+// var currentIndexOnPage = [0,1,2];
 
 function displayProducts() {
 
@@ -203,42 +205,6 @@ function handleClickOnProducts(event) {
 var listOfProducts = document.getElementById('ulDisplayProducts');
 listOfProducts.addEventListener('click', handleClickOnProducts);
 
-new Product('bag', 'assets/bag.jpg', 0, 0);
-new Product('banana', 'assets/banana.jpg', 0, 0);
-new Product('bathroom', 'assets/bathroom.jpg', 0, 0);
-new Product('boots', 'assets/boots.jpg', 0, 0);
-new Product('breakfast', 'assets/breakfast.jpg', 0, 0);
-new Product('bubblegum', 'assets/bubblegum.jpg', 0, 0);
-new Product('chair', 'assets/chair.jpg', 0, 0);
-new Product('cthulhu', 'assets/cthulhu.jpg', 0, 0);
-new Product('dog-duck', 'assets/dog-duck.jpg', 0, 0);
-new Product('dragon', 'assets/dragon.jpg', 0, 0);
-new Product('pen', 'assets/pen.jpg', 0, 0);
-new Product('pet-sweep', 'assets/pet-sweep.jpg', 0, 0);
-new Product('scissors', 'assets/scissors.jpg', 0, 0);
-new Product('shark', 'assets/shark.jpg', 0, 0);
-new Product('sweep', 'assets/sweep.png', 0, 0);
-new Product('tauntaun', 'assets/tauntaun.jpg', 0, 0);
-new Product('unicorn', 'assets/unicorn.jpg', 0, 0);
-new Product('usb', 'assets/usb.gif', 0, 0);
-new Product('water-can', 'assets/water-can.jpg', 0, 0);
-new Product('wine-glass', 'assets/wine-glass.jpg', 0, 0);
-
-
-
-Product.productsArray[0].numberOfTimesDisplayed = 1;
-Product.productsArray[1].numberOfTimesDisplayed = 1;
-Product.productsArray[2].numberOfTimesDisplayed = 1;
-
-
-renderFinalResults();
-
-Product.productsArray[0].renderProducts();
-Product.productsArray[1].renderProducts();
-Product.productsArray[2].renderProducts();
-
-// ========================================== retrieve
-
 TODO:
 
 // retrieving from localStorage
@@ -248,18 +214,57 @@ var parsedProducts = JSON.parse(productsFromLocalStorage);
 
 if(parsedProducts !== null){
   for(var i = 0; i < parsedProducts.length; i++){
-    var reconstitutedProducts = new Product(parsedProducts.productName, parsedProducts.imageSrc, parsedProducts.liveClicks, parsedProducts.numberOfTimesDisplayed);
+    var reconstitutedProducts = new Product(parsedProducts[i].productName, parsedProducts[i].imageSrc, parsedProducts[i].liveClicks, parsedProducts[i].numberOfTimesDisplayed);
   }
   // var reconstitutedProducts = new Product(parsedProducts.productName, parsedProducts.imageSrc, parsedProducts.liveClicks, parsedProducts.numberOfTimesDisplayed);
+} else{
+  new Product('bag', 'assets/bag.jpg', 0, 0);
+  new Product('banana', 'assets/banana.jpg', 0, 0);
+  new Product('bathroom', 'assets/bathroom.jpg', 0, 0);
+  new Product('boots', 'assets/boots.jpg', 0, 0);
+  new Product('breakfast', 'assets/breakfast.jpg', 0, 0);
+  new Product('bubblegum', 'assets/bubblegum.jpg', 0, 0);
+  new Product('chair', 'assets/chair.jpg', 0, 0);
+  new Product('cthulhu', 'assets/cthulhu.jpg', 0, 0);
+  new Product('dog-duck', 'assets/dog-duck.jpg', 0, 0);
+  new Product('dragon', 'assets/dragon.jpg', 0, 0);
+  new Product('pen', 'assets/pen.jpg', 0, 0);
+  new Product('pet-sweep', 'assets/pet-sweep.jpg', 0, 0);
+  new Product('scissors', 'assets/scissors.jpg', 0, 0);
+  new Product('shark', 'assets/shark.jpg', 0, 0);
+  new Product('sweep', 'assets/sweep.png', 0, 0);
+  new Product('tauntaun', 'assets/tauntaun.jpg', 0, 0);
+  new Product('unicorn', 'assets/unicorn.jpg', 0, 0);
+  new Product('usb', 'assets/usb.gif', 0, 0);
+  new Product('water-can', 'assets/water-can.jpg', 0, 0);
+  new Product('wine-glass', 'assets/wine-glass.jpg', 0, 0);
+
+  // Product.productsArray[0].numberOfTimesDisplayed = 1;
+  // Product.productsArray[1].numberOfTimesDisplayed = 1;
+  // Product.productsArray[2].numberOfTimesDisplayed = 1;
+
+  // renderFinalResults();
+
+  // Product.productsArray[0].renderProducts();
+  // Product.productsArray[1].renderProducts();
+  // Product.productsArray[2].renderProducts();
+
+  // displayProducts();
+  // renderFinalResults();
+
 }
 
 
-if(parsedProducts !== null){
+displayProducts();
+renderFinalResults();
 
-  Product.productsArray = parsedProducts;
 
-  reconstitutedProducts.renderProducts();
-}
+// if(parsedProducts !== null){
+
+//   Product.productsArray = parsedProducts;
+
+//   reconstitutedProducts.renderProducts();
+// }
 
 
 

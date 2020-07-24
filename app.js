@@ -7,7 +7,7 @@
 // var productsArray = [];
 Product.productsArray = [];
 var totalClicks = 0;
-var roundsOfVote = 4;
+var roundsOfVote = 25;
 
 // ============================ function definition ============================
 
@@ -239,39 +239,14 @@ if(parsedProducts !== null){
   new Product('water-can', 'assets/water-can.jpg', 0, 0);
   new Product('wine-glass', 'assets/wine-glass.jpg', 0, 0);
 
-  // Product.productsArray[0].numberOfTimesDisplayed = 1;
-  // Product.productsArray[1].numberOfTimesDisplayed = 1;
-  // Product.productsArray[2].numberOfTimesDisplayed = 1;
-
-  // renderFinalResults();
-
-  // Product.productsArray[0].renderProducts();
-  // Product.productsArray[1].renderProducts();
-  // Product.productsArray[2].renderProducts();
-
-  // displayProducts();
-  // renderFinalResults();
-
 }
-
 
 displayProducts();
 renderFinalResults();
 
 
-// if(parsedProducts !== null){
 
-//   Product.productsArray = parsedProducts;
-
-//   reconstitutedProducts.renderProducts();
-// }
-
-
-
-// ========================================== retrieve
-
-
-// ================================= 1st chart =================================
+// ================================= chart =================================
 
 function createChart() {
   
@@ -415,15 +390,3 @@ function createChart() {
 }
 
 
-// ============================= Storage =============================
-
-// // TODO:
-// // retrieving from localStorage
-// var productsFromLocalStorage = localStorage.getItem('products');
-// var parsedProducts = JSON.parse(productsFromLocalStorage);
-
-// Product.productsArray = parsedProducts;
-
-// var reconstitutedProducts = new Product(parsedProducts.productName, parsedProducts.imageSrc, parsedProducts.liveClicks, parsedProducts.numberOfTimesDisplayed);
-
-// reconstitutedProducts.renderProducts();

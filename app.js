@@ -1,17 +1,15 @@
 'use strict';
 
-// console.log('connected');
-
 // ============================ global vars ============================
 
 // var productsArray = [];
 Product.productsArray = [];
 var totalClicks = 0;
-var roundsOfVote = 4;
+var roundsOfVote = 25;
 
 // ============================ function definition ============================
 
-
+//constructor
 function Product(productName, src, liveClicks, numberOfTimesDisplayed){
 
   this.productName = productName;
@@ -35,7 +33,7 @@ Product.prototype.renderProducts = function() {
 
 };
 
-
+//shows a list of product name, no. of times product was displayed and product vote
 function renderFinalResults() {
 
   for(var i = 0; i < Product.productsArray.length; i++){
@@ -63,15 +61,13 @@ function renderFinalResults() {
 TODO:
 var currentIndexOnPage = [];
 
-// var currentIndexOnPage = [0,1,2];
-
 function displayProducts() {
 
   var item1 = Math.floor(Math.random() * Product.productsArray.length);
   var item2 = Math.floor(Math.random() * Product.productsArray.length);
   var item3 = Math.floor(Math.random() * Product.productsArray.length);
 
-  //make sure that none of the new 3 images is the same with the 3 old images
+  //makes sure that none of the new 3 images is the same with the 3 old images
   while(item1 === currentIndexOnPage[0] ||
        item1 === currentIndexOnPage[1] ||
        item1 === currentIndexOnPage[2]){
@@ -102,13 +98,10 @@ function displayProducts() {
 
   }
 
-  // Product.productsArray[item1].numberOfTimesDisplayed++;
   var prod1 = Product.productsArray[item1];
 
-  // Product.productsArray[item2].numberOfTimesDisplayed++;
   var prod2 =Product.productsArray[item2];
 
-  // Product.productsArray[item3].numberOfTimesDisplayed++;
   var prod3 = Product.productsArray[item3];
 
   var prodList = document.getElementById('ulDisplayProducts');
@@ -149,12 +142,9 @@ function handleClickOnProducts(event) {
         Product.productsArray[prodIndex].liveClicks++;
 
         //storing in local storage
-
         var stringyProductsArray = JSON.stringify(Product.productsArray);
         localStorage.setItem('products', stringyProductsArray);
 
-
-        //local storage ends here
 
 
         //live results for votes
@@ -180,12 +170,11 @@ function handleClickOnProducts(event) {
       resultList.innerHTML = '';
       renderFinalResults();
 
-      //remove listner
+      //remove listener
       listOfProducts.removeEventListener('click', handleClickOnProducts);
 
       // makes chart
       createChart();
-      // createChart2();
 
 
     }
@@ -194,10 +183,6 @@ function handleClickOnProducts(event) {
     console.log('please click an image');
   }
 
-  // var resultList = document.getElementById('product-vote');
-  // resultList.innerHTML = '';
-  // renderFinalResults();
-
 }
 
 // ============================ function calls ============================
@@ -205,7 +190,6 @@ function handleClickOnProducts(event) {
 var listOfProducts = document.getElementById('ulDisplayProducts');
 listOfProducts.addEventListener('click', handleClickOnProducts);
 
-TODO:
 
 // retrieving from localStorage
 var productsFromLocalStorage = localStorage.getItem('products');
@@ -216,7 +200,6 @@ if(parsedProducts !== null){
   for(var i = 0; i < parsedProducts.length; i++){
     var reconstitutedProducts = new Product(parsedProducts[i].productName, parsedProducts[i].imageSrc, parsedProducts[i].liveClicks, parsedProducts[i].numberOfTimesDisplayed);
   }
-  // var reconstitutedProducts = new Product(parsedProducts.productName, parsedProducts.imageSrc, parsedProducts.liveClicks, parsedProducts.numberOfTimesDisplayed);
 } else{
   new Product('bag', 'assets/bag.jpg', 0, 0);
   new Product('banana', 'assets/banana.jpg', 0, 0);
@@ -239,42 +222,16 @@ if(parsedProducts !== null){
   new Product('water-can', 'assets/water-can.jpg', 0, 0);
   new Product('wine-glass', 'assets/wine-glass.jpg', 0, 0);
 
-  // Product.productsArray[0].numberOfTimesDisplayed = 1;
-  // Product.productsArray[1].numberOfTimesDisplayed = 1;
-  // Product.productsArray[2].numberOfTimesDisplayed = 1;
-
-  // renderFinalResults();
-
-  // Product.productsArray[0].renderProducts();
-  // Product.productsArray[1].renderProducts();
-  // Product.productsArray[2].renderProducts();
-
-  // displayProducts();
-  // renderFinalResults();
-
 }
-
 
 displayProducts();
 renderFinalResults();
 
 
-// if(parsedProducts !== null){
-
-//   Product.productsArray = parsedProducts;
-
-//   reconstitutedProducts.renderProducts();
-// }
-
-
-
-// ========================================== retrieve
-
-
-// ================================= 1st chart =================================
+// ================================= chart =================================
 
 function createChart() {
-  
+
   // generate product names for the chart
   var labelArray = [];
   var productData = [];
@@ -415,15 +372,3 @@ function createChart() {
 }
 
 
-// ============================= Storage =============================
-
-// // TODO:
-// // retrieving from localStorage
-// var productsFromLocalStorage = localStorage.getItem('products');
-// var parsedProducts = JSON.parse(productsFromLocalStorage);
-
-// Product.productsArray = parsedProducts;
-
-// var reconstitutedProducts = new Product(parsedProducts.productName, parsedProducts.imageSrc, parsedProducts.liveClicks, parsedProducts.numberOfTimesDisplayed);
-
-// reconstitutedProducts.renderProducts();
